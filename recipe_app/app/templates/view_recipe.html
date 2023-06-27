@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ recipe.title }}</h1>
+  <p>{{ recipe.content }}</p>
+  <p>Author: {{ recipe.author.username }}</p>
+  <h2>Comments</h2>
+  {% for comment in recipe.comments %}
+    <p>{{ comment.text }}</p>
+    <p>Commented by: {{ comment.user.username }}</p>
+    <hr>
+  {% endfor %}
+  <form action="{{ url_for('comment_recipe', recipe_id=recipe.id) }}" method="post">
+    <textarea name="comment_text" placeholder="Add a comment" rows="4" cols="50"></textarea>
+    <br>
+    <button type="submit">Add Comment</button>
+  </form>
+  <form action="{{ url_for('favorite_recipe', recipe_id=recipe.id) }}" method="post">
+    <button type="submit">Favorite Recipe</button>
+  </form>
+{% endblock %}
